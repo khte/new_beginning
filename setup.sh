@@ -82,4 +82,6 @@ pip3 install -U rospkg
 cd $HOME/
 git clone git@github.com:PX4/PX4-Autopilot.git
 cd PX4-Autopilot
-git checkout 
+git checkout v1.13.0
+git submodule update --init --recursive
+./Tools/setup/ubuntu.sh
