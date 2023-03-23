@@ -13,7 +13,9 @@ sudo apt install -y guake
 sudo pam-auth-update
 
 #Git
-sudo apt install -y git 
+sudo apt install -y git
+git config --global user.name "Kristian"
+git config --global user.email "khte@mmmi.sdu.dk"
 
 #Add user to dialout
 sudo usermod -a -G dialout $USER
