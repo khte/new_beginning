@@ -6,6 +6,14 @@ sudo apt-get upgrade -y
 #Basics
 sudo apt install -y ffmpeg coreutils nano build-essential vlc unzip wget gnome-tweaks solaar
 
+#expand swap memory
+sudo swapoff -a
+sudo fallocate -l 6G /swapfile #Change gigabytes as desired
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo nano /etc/fstab #Insert: /swapfile swap swap defaults 0 0
+
 #Guake
 sudo apt install -y guake
 
@@ -46,6 +54,9 @@ echo "deb [arch=amd64] https://wire-app.wire.com/linux/debian stable main" \
    | sudo tee /etc/apt/sources.list.d/wire-desktop.list
 sudo apt-get update && sudo apt install -y wire-desktop
 
+#cura
+sudo apt install -y cura
+
 #VS code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
@@ -78,6 +89,13 @@ sudo apt install -y python3-colcon-common-extensions python3-vcstool python3-ros
 sudo apt install -y python3-pip
 pip3 install -U rospkg 
 
+#qgroundcontrol
+sudo usermod -a -G dialout $USER
+sudo apt-get remove modemmanager -y
+sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
+sudo apt install libqt5gui5 -y
+sudo apt install libfuse2 -y
+
 #px4 firmware
 cd $HOME/
 git clone git@github.com:PX4/PX4-Autopilot.git
@@ -85,3 +103,4 @@ cd PX4-Autopilot
 git checkout v1.13.0
 git submodule update --init --recursive
 ./Tools/setup/ubuntu.sh
+make px4_sitl_default gazebo
